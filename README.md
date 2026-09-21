@@ -2,8 +2,6 @@
 
 Halaman web portofolio satu halaman untuk memperkenalkan profil, proyek, dan layanan konsultasi. Dibuat dengan HTML5 semantik dan CSS3 murni (tanpa framework), sebagai tugas mandiri matakuliah Pemrograman dan Pengujian Aplikasi Web di Institut Teknologi Del.
 
-**Demo:** https://oliviatambunan1.github.io/ppw-2026-week2-12S24048/
-
 ## Fitur
 
 - **Tentang saya**: pengantar singkat dan kartu profil berisi fokus serta keahlian.
@@ -24,7 +22,7 @@ Halaman web portofolio satu halaman untuk memperkenalkan profil, proyek, dan lay
 ppw-2026-week2-12S24048/
 ├── index.html
 ├── style.css
-├── screenshots/
+├── screenshot/
 │   ├── desktop.png
 └── README.md
 ```
