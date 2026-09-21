@@ -7,7 +7,7 @@
     --white: #fffdf8;
     --charcoal: #292824;
     --gray: #66645d;
-    --terracotta: #b86b52;
+    --terracotta: #9a4f38;
     --sage: #7d8b75;
     --border: #d8d2c7;
 
@@ -203,6 +203,13 @@ header {
 
     box-shadow:
         0 8px 20px rgba(41, 40, 36, 0.05);
+}
+
+
+.steps {
+    margin-bottom: 30px;
+    padding-left: 20px;
+    color: var(--gray);
 }
 
 .profile-info h3 {
@@ -473,7 +480,7 @@ textarea:focus {
 }
 
 .submit-button:hover {
-    background-color: #96523f;
+    background-color: #7f3f2c;   /* sebelumnya #96523f */
     transform: translateY(-2px);
 }
 

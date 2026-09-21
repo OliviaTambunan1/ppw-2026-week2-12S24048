@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portofolio Olivia Tambunan, mahasiswa S1 Sistem Informasi Institut Teknologi Del.">
 
     <title>Portfolio Mahasiswa</title>
 
@@ -23,7 +24,7 @@
 
     <!-- HEADER -->
     <header>
-        <nav class="navbar">
+        <nav class="navbar" aria-label="Navigasi utama">
 
             <h1 class="logo">My Portfolio</h1>
 
@@ -227,8 +228,20 @@
             </div>
 
 
-            <!-- FORM -->
-            <form action="#" method="post">
+            <!-- ORDERED LIST: alur konsultasi -->
+            <ol class="steps">
+                <li>Isi formulir di bawah ini.</li>
+                <li>Saya membalas dalam tiga hari kerja.</li>
+                <li>Kita diskusikan kebutuhan dan jadwal proyek.</li>
+            </ol>
+
+
+            <!--
+                CATATAN: GitHub Pages hanya menyajikan berkas statis,
+                jadi form memakai mailto: agar tetap berfungsi.
+                GANTI emailkamu@example.com dengan email Anda.
+            -->
+            <form action="mailto:emailkamu@example.com" method="post" enctype="text/plain">
 
                 <!-- FIELDSET 1 -->
                 <fieldset>
@@ -246,6 +259,7 @@
                             id="nama"
                             name="nama"
                             placeholder="Nama lengkap"
+                            autocomplete="name"
                             required
                         >
 
@@ -263,6 +277,7 @@
                             id="email"
                             name="email"
                             placeholder="nama@email.com"
+                            autocomplete="email"
                             required
                         >
 
@@ -280,6 +295,8 @@
                             id="telepon"
                             name="telepon"
                             placeholder="08xxxxxxxxxx"
+                            autocomplete="tel"
+                            inputmode="tel"
                             required
                         >
 
@@ -295,12 +312,13 @@
 
                     <div class="form-group">
 
-                        <label for="layanan">
+                        <!-- id diganti agar tidak sama dengan id section "layanan" -->
+                        <label for="jenis-layanan">
                             Jenis Layanan *
                         </label>
 
                         <select
-                            id="layanan"
+                            id="jenis-layanan"
                             name="layanan"
                             required
                         >
@@ -366,9 +384,10 @@
                             Prioritas *
                         </p>
 
-                        <label class="radio-label">
+                        <label class="radio-label" for="prioritas-normal">
                             <input
                                 type="radio"
+                                id="prioritas-normal"
                                 name="prioritas"
                                 value="normal"
                                 required
@@ -376,11 +395,13 @@
                             Normal
                         </label>
 
-                        <label class="radio-label">
+                        <label class="radio-label" for="prioritas-urgent">
                             <input
                                 type="radio"
+                                id="prioritas-urgent"
                                 name="prioritas"
                                 value="urgent"
+                                required
                             >
                             Perlu segera
                         </label>
@@ -395,18 +416,20 @@
                             Kebutuhan Tambahan
                         </p>
 
-                        <label class="checkbox-label">
+                        <label class="checkbox-label" for="tambahan-responsive">
                             <input
                                 type="checkbox"
+                                id="tambahan-responsive"
                                 name="tambahan"
                                 value="responsive"
                             >
                             Responsive Design
                         </label>
 
-                        <label class="checkbox-label">
+                        <label class="checkbox-label" for="tambahan-uiux">
                             <input
                                 type="checkbox"
+                                id="tambahan-uiux"
                                 name="tambahan"
                                 value="uiux"
                             >
