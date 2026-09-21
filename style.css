@@ -1,0 +1,582 @@
+/* ==========================================================
+   1. VARIABLES
+   ========================================================== */
+
+:root {
+    --cream: #f7f3ea;
+    --white: #fffdf8;
+    --charcoal: #292824;
+    --gray: #66645d;
+    --terracotta: #b86b52;
+    --sage: #7d8b75;
+    --border: #d8d2c7;
+
+    --heading-font: "Playfair Display", Georgia, serif;
+    --body-font: "Plus Jakarta Sans", Arial, sans-serif;
+}
+
+
+/* ==========================================================
+   2. UNIVERSAL RESET
+   ========================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--charcoal);
+
+    font-family: var(--body-font);
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+
+/* ==========================================================
+   3. GENERAL
+   ========================================================== */
+
+header,
+main,
+footer {
+    width: 100%;
+}
+
+.navbar,
+.about,
+.portfolio,
+.services {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+section {
+    padding: 80px 0;
+}
+
+h2,
+h3 {
+    font-family: var(--heading-font);
+    line-height: 1.2;
+}
+
+.label {
+    margin-bottom: 12px;
+
+    color: var(--terracotta);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+/* ==========================================================
+   4. HEADER & NAVIGATION
+   ========================================================== */
+
+header {
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: var(--heading-font);
+    font-size: 1.4rem;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+
+    list-style: none;
+}
+
+.nav-menu a {
+    color: var(--charcoal);
+
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.nav-menu a:hover {
+    color: var(--terracotta);
+}
+
+
+/* ==========================================================
+   5. ABOUT / HERO
+   ========================================================== */
+
+.about {
+    min-height: 600px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+    align-items: center;
+    gap: 70px;
+}
+
+.about h2 {
+    max-width: 700px;
+
+    font-size: clamp(3rem, 7vw, 5.5rem);
+}
+
+.about h2 span {
+    color: var(--terracotta);
+}
+
+.about-text > p:not(.label) {
+    max-width: 600px;
+
+    margin: 25px 0;
+
+    color: var(--gray);
+}
+
+.button {
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    background-color: var(--charcoal);
+    color: var(--white);
+
+    border-radius: 6px;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button:hover {
+    background-color: var(--terracotta);
+    transform: translateY(-2px);
+}
+
+
+/* Aside */
+
+.profile-info {
+    padding: 30px;
+
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--terracotta);
+
+    box-shadow:
+        0 8px 20px rgba(41, 40, 36, 0.05);
+}
+
+.profile-info h3 {
+    margin-bottom: 10px;
+
+    font-size: 1.6rem;
+}
+
+.profile-info > p:not(.label) {
+    color: var(--gray);
+}
+
+.profile-info ul {
+    margin-top: 20px;
+    padding-left: 20px;
+
+    color: var(--gray);
+}
+
+
+/* ==========================================================
+   6. SECTION TITLE
+   ========================================================== */
+
+.section-title {
+    max-width: 700px;
+
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+    margin-bottom: 15px;
+
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.section-title > p:last-child {
+    color: var(--gray);
+}
+
+
+/* ==========================================================
+   7. PORTFOLIO PROJECTS
+   ========================================================== */
+
+.portfolio {
+    border-top: 1px solid var(--border);
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.project-card {
+    min-height: 300px;
+
+    padding: 30px;
+
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+
+    border-color: var(--terracotta);
+
+    box-shadow:
+        0 8px 20px rgba(41, 40, 36, 0.06);
+}
+
+.project-number {
+    display: block;
+
+    margin-bottom: 40px;
+
+    color: var(--terracotta);
+
+    font-family: var(--heading-font);
+    font-size: 1.2rem;
+}
+
+.project-card h3 {
+    margin-bottom: 15px;
+
+    font-size: 1.6rem;
+}
+
+.project-card p {
+    color: var(--gray);
+
+    font-size: 0.9rem;
+}
+
+.project-card .technology {
+    margin-top: 25px;
+
+    color: var(--sage);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   8. TABLE
+   ========================================================== */
+
+.table-container {
+    margin-top: 50px;
+
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background-color: var(--white);
+}
+
+caption {
+    margin-bottom: 15px;
+
+    font-family: var(--heading-font);
+    font-size: 1.4rem;
+
+    text-align: left;
+}
+
+th,
+td {
+    padding: 15px;
+
+    border-bottom: 1px solid var(--border);
+
+    text-align: left;
+}
+
+thead {
+    background-color: var(--charcoal);
+    color: var(--white);
+}
+
+tfoot {
+    background-color: #eee9df;
+}
+
+
+/* ==========================================================
+   9. FORM
+   ========================================================== */
+
+.services {
+    border-top: 1px solid var(--border);
+}
+
+form {
+    max-width: 800px;
+}
+
+fieldset {
+    margin-bottom: 25px;
+    padding: 25px;
+
+    border: 1px solid var(--border);
+
+    background-color: var(--white);
+}
+
+legend {
+    padding: 0 10px;
+
+    color: var(--terracotta);
+
+    font-family: var(--heading-font);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label,
+.form-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    background-color: var(--white);
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    color: var(--charcoal);
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 2px;
+}
+
+.radio-label,
+.checkbox-label {
+    display: inline-flex !important;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-right: 20px;
+    margin-bottom: 8px;
+}
+
+.radio-label input,
+.checkbox-label input {
+    accent-color: var(--terracotta);
+}
+
+
+/* Submit */
+
+.submit-button {
+    padding: 13px 25px;
+
+    background-color: var(--terracotta);
+    color: var(--white);
+
+    border: none;
+    border-radius: 5px;
+
+    font-weight: 700;
+
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.submit-button:hover {
+    background-color: #96523f;
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================================
+   10. FOOTER
+   ========================================================== */
+
+footer {
+    padding: 30px;
+
+    background-color: var(--charcoal);
+    color: var(--white);
+
+    text-align: center;
+
+    font-size: 0.8rem;
+}
+
+
+/* ==========================================================
+   11. RESPONSIVE
+   Requirement modul:
+   @media (max-width: 768px)
+   ========================================================== */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 10px;
+
+        padding: 15px 0;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+        min-height: auto;
+    }
+
+    .about h2 {
+        font-size: 3rem;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-card {
+        min-height: auto;
+    }
+
+    .nav-menu {
+        gap: 18px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    fieldset {
+        padding: 20px;
+    }
+
+}
+
+
+/* ==========================================================
+   12. SMALL SCREEN
+   ========================================================== */
+
+@media (max-width: 480px) {
+
+    .navbar,
+    .about,
+    .portfolio,
+    .services {
+        width: 92%;
+    }
+
+    .nav-menu {
+        gap: 12px;
+    }
+
+    .nav-menu a {
+        font-size: 0.8rem;
+    }
+
+    .about h2 {
+        font-size: 2.5rem;
+    }
+
+    th,
+    td {
+        padding: 10px;
+
+        font-size: 0.8rem;
+    }
+
+}

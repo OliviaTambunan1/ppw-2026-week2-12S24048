@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portfolio Mahasiswa</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <nav class="navbar">
+
+            <h1 class="logo">My Portfolio</h1>
+
+            <ul class="nav-menu">
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#portofolio">Portofolio</a></li>
+                <li><a href="#layanan">Layanan</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- SECTION 1: TENTANG SAYA -->
+        <section id="tentang" class="about">
+
+            <div class="about-text">
+
+                <p class="label">PORTFOLIO MAHASISWA</p>
+
+                <h2>
+                    Halo, saya
+                    <span>Olivia.</span>
+                </h2>
+
+                <p>
+                    Saya adalah mahasiswa Sistem Informasi yang tertarik
+                    pada pengembangan website dan perancangan antarmuka
+                    yang sederhana dan mudah digunakan.
+                </p>
+
+                <a href="#portofolio" class="button">
+                    Lihat Portofolio
+                </a>
+
+            </div>
+
+
+            <!-- ASIDE -->
+            <aside class="profile-info">
+
+                <p class="label">PROFILE</p>
+
+                <h3>Mahasiswa Sistem Informasi</h3>
+
+                <p>
+                    Fokus pada Web Development dan UI/UX.
+                </p>
+
+                <ul>
+                    <li>HTML & CSS</li>
+                    <li>Laravel</li>
+                    <li>Java</li>
+                    <li>Figma</li>
+                </ul>
+
+            </aside>
+
+        </section>
+
+
+        <!-- SECTION 2: PORTOFOLIO -->
+        <section id="portofolio" class="portfolio">
+
+            <div class="section-title">
+                <p class="label">01 / PORTOFOLIO</p>
+
+                <h2>Proyek yang pernah dikerjakan</h2>
+            </div>
+
+
+            <!-- PROJECT CARDS -->
+            <div class="project-grid">
+
+                <article class="project-card">
+                    <span class="project-number">01</span>
+
+                    <h3>Lost &amp; Found Asrama</h3>
+
+                    <p>
+                        Website untuk membantu mahasiswa melaporkan
+                        dan menemukan barang yang hilang atau ditemukan
+                        di lingkungan asrama.
+                    </p>
+
+                    <p class="technology">
+                        Laravel · MySQL
+                    </p>
+                </article>
+
+
+                <article class="project-card">
+                    <span class="project-number">02</span>
+
+                    <h3>Immunization App</h3>
+
+                    <p>
+                        Perancangan UI/UX aplikasi yang membantu orang
+                        tua mendapatkan informasi mengenai imunisasi anak.
+                    </p>
+
+                    <p class="technology">
+                        Figma · UX Research
+                    </p>
+                </article>
+
+
+                <article class="project-card">
+                    <span class="project-number">03</span>
+
+                    <h3>JExpress</h3>
+
+                    <p>
+                        Sistem pengelolaan pengiriman paket yang dibuat
+                        menggunakan konsep Object-Oriented Programming.
+                    </p>
+
+                    <p class="technology">
+                        Java · PostgreSQL
+                    </p>
+                </article>
+
+            </div>
+
+
+            <!-- TABLE -->
+            <div class="table-container">
+
+                <table>
+
+                    <caption>
+                        Rekapitulasi Proyek
+                    </caption>
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Proyek</th>
+                            <th scope="col">Kategori</th>
+                            <th scope="col">Teknologi</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <th scope="row">Lost &amp; Found Asrama</th>
+                            <td>Web Development</td>
+                            <td>Laravel, MySQL</td>
+                            <td>Developing</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">Immunization App</th>
+                            <td>UI/UX</td>
+                            <td>Figma</td>
+                            <td>Selesai</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">JExpress</th>
+                            <td>Software</td>
+                            <td>Java, PostgreSQL</td>
+                            <td>Selesai</td>
+                        </tr>
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th scope="row" colspan="3">
+                                Total Proyek
+                            </th>
+
+                            <td>3</td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 3: LAYANAN -->
+        <section id="layanan" class="services">
+
+            <div class="section-title">
+                <p class="label">02 / LAYANAN</p>
+
+                <h2>Formulir Layanan</h2>
+
+                <p>
+                    Silakan isi formulir berikut untuk mengirim
+                    permintaan konsultasi atau diskusi proyek.
+                </p>
+            </div>
+
+
+            <!-- FORM -->
+            <form action="#" method="post">
+
+                <!-- FIELDSET 1 -->
+                <fieldset>
+
+                    <legend>Data Diri</legend>
+
+                    <div class="form-group">
+
+                        <label for="nama">
+                            Nama Lengkap *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nama"
+                            name="nama"
+                            placeholder="Nama lengkap"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email *
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="nama@email.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="telepon">
+                            Nomor Telepon *
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="telepon"
+                            name="telepon"
+                            placeholder="08xxxxxxxxxx"
+                            required
+                        >
+
+                    </div>
+
+                </fieldset>
+
+
+                <!-- FIELDSET 2 -->
+                <fieldset>
+
+                    <legend>Detail Layanan</legend>
+
+                    <div class="form-group">
+
+                        <label for="layanan">
+                            Jenis Layanan *
+                        </label>
+
+                        <select
+                            id="layanan"
+                            name="layanan"
+                            required
+                        >
+                            <option value="">
+                                Pilih layanan
+                            </option>
+
+                            <option value="website">
+                                Konsultasi Website
+                            </option>
+
+                            <option value="uiux">
+                                Review UI/UX
+                            </option>
+
+                            <option value="frontend">
+                                Front-End Development
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="jumlah">
+                            Perkiraan Jumlah Halaman *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="jumlah"
+                            name="jumlah"
+                            min="1"
+                            max="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="tanggal">
+                            Target Tanggal *
+                        </label>
+
+                        <input
+                            type="date"
+                            id="tanggal"
+                            name="tanggal"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- RADIO -->
+                    <div class="form-group">
+
+                        <p class="form-label">
+                            Prioritas *
+                        </p>
+
+                        <label class="radio-label">
+                            <input
+                                type="radio"
+                                name="prioritas"
+                                value="normal"
+                                required
+                            >
+                            Normal
+                        </label>
+
+                        <label class="radio-label">
+                            <input
+                                type="radio"
+                                name="prioritas"
+                                value="urgent"
+                            >
+                            Perlu segera
+                        </label>
+
+                    </div>
+
+
+                    <!-- CHECKBOX -->
+                    <div class="form-group">
+
+                        <p class="form-label">
+                            Kebutuhan Tambahan
+                        </p>
+
+                        <label class="checkbox-label">
+                            <input
+                                type="checkbox"
+                                name="tambahan"
+                                value="responsive"
+                            >
+                            Responsive Design
+                        </label>
+
+                        <label class="checkbox-label">
+                            <input
+                                type="checkbox"
+                                name="tambahan"
+                                value="uiux"
+                            >
+                            Review UI/UX
+                        </label>
+
+                    </div>
+
+
+                    <!-- TEXTAREA -->
+                    <div class="form-group">
+
+                        <label for="pesan">
+                            Deskripsi Kebutuhan *
+                        </label>
+
+                        <textarea
+                            id="pesan"
+                            name="pesan"
+                            rows="5"
+                            placeholder="Tuliskan kebutuhan Anda..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+                </fieldset>
+
+
+                <button type="submit" class="submit-button">
+                    Kirim Permintaan
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            &copy; 2026 Olivia — Institut Teknologi Del
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
