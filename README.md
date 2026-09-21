@@ -4,12 +4,6 @@ Halaman web portofolio satu halaman untuk memperkenalkan profil, proyek, dan lay
 
 **Demo:** https://oliviatambunan1.github.io/ppw-2026-week2-12S24048/
 
-## Tampilan
-
-| Desktop                                      | Mobile                                     |
-| -------------------------------------------- | ------------------------------------------ |
-| ![Tampilan desktop](screenshots/desktop.png) | ![Tampilan mobile](screenshots/mobile.png) |
-
 ## Fitur
 
 - **Tentang saya**: pengantar singkat dan kartu profil berisi fokus serta keahlian.
