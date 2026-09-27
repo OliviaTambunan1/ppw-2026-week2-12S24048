@@ -5,18 +5,21 @@ Program Studi S1 Sistem Informasi, Institut Teknologi Del
 Dosen Pengampu: Chandro Pardede, S.Kom., M.Sc.
 
 ## Identitas Pengembang
-| Atribut | Keterangan |
-|---|---|
-| Nama | Olivia Tambunan |
-| NIM | 12S24048 |
-| Kelas | 13 SI |
-| Program Studi / Kelas | S1 Sistem Informasi |
-| Institusi | Institut Teknologi Del |
+
+| Atribut       | Keterangan             |
+| ------------- | ---------------------- |
+| Nama          | Olivia Tambunan        |
+| NIM           | 12S24048               |
+| Kelas         | 13 SI                  |
+| Program Studi | S1 Sistem Informasi    |
+| Institusi     | Institut Teknologi Del |
 
 ## Live Demo
+
 GitHub Pages: https://oliviatambunan1.github.io/ppw-2026-week2-12S24048/
 
 ## Ringkasan Pembaruan Minggu 3
+
 Proyek portofolio dari Minggu 2 (HTML5 semantik + CSS3 murni) direfaktor total menggunakan
 Bootstrap 5.3.3 yang dipadukan dengan Custom CSS Overrides, tanpa menghilangkan struktur
 semantik HTML5 yang sudah dibangun sebelumnya. Pembaruan utama meliputi:
@@ -34,19 +37,20 @@ semantik HTML5 yang sudah dibangun sebelumnya. Pembaruan utama meliputi:
 
 ## Perbandingan: Sebelum vs Sesudah Integrasi Framework
 
-| Aspek | Sebelum (Minggu 2 — CSS Murni) | Sesudah (Minggu 3 — Bootstrap 5) |
-|---|---|---|
-| CSS Framework | Tidak ada, seluruh gaya ditulis manual di style.css | Bootstrap 5.3.3 (CDN) + Bootstrap Icons, di-override dengan style.css kustom |
-| Sistem Grid | CSS Grid manual (grid-template-columns) | Grid 12-kolom Bootstrap (row-cols-1 row-cols-md-2 row-cols-lg-3) |
-| Navigasi | Nav statis tanpa menu mobile | Navbar sticky-top dengan hamburger toggle (navbar-toggler + collapse) responsif |
-| Detail Proyek | Tidak ada tampilan detail, hanya kartu statis | Bootstrap Modal Dialog interaktif per proyek (4 modal berbeda) |
-| Formulir | Input polos dengan label di atas input | Floating Labels (.form-floating), Input Group berikon, validasi visual valid/invalid-feedback |
-| Ikon | Tidak ada ikon | Bootstrap Icons pada tombol, navbar, dan form |
-| Variabel Tema | Warna ditulis langsung (hex berulang) | 11 CSS Custom Properties di :root (warna, font, shadow, transisi terpusat) |
-| Selector CSS | Selector dasar (class & element) | Advanced selectors: combinator >  ~, :nth-child(), :focus-within, :is(), :not() |
-| Responsivitas | 1 breakpoint (@media max-width: 768px) | Multi-breakpoint bawaan Bootstrap (sm, md, lg, xl) + custom media query |
+| Aspek         | Sebelum (Minggu 2 — CSS Murni)                      | Sesudah (Minggu 3 — Bootstrap 5)                                                              |
+| ------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| CSS Framework | Tidak ada, seluruh gaya ditulis manual di style.css | Bootstrap 5.3.3 (CDN) + Bootstrap Icons, di-override dengan style.css kustom                  |
+| Sistem Grid   | CSS Grid manual (grid-template-columns)             | Grid 12-kolom Bootstrap (row-cols-1 row-cols-md-2 row-cols-lg-3)                              |
+| Navigasi      | Nav statis tanpa menu mobile                        | Navbar sticky-top dengan hamburger toggle (navbar-toggler + collapse) responsif               |
+| Detail Proyek | Tidak ada tampilan detail, hanya kartu statis       | Bootstrap Modal Dialog interaktif per proyek (4 modal berbeda)                                |
+| Formulir      | Input polos dengan label di atas input              | Floating Labels (.form-floating), Input Group berikon, validasi visual valid/invalid-feedback |
+| Ikon          | Tidak ada ikon                                      | Bootstrap Icons pada tombol, navbar, dan form                                                 |
+| Variabel Tema | Warna ditulis langsung (hex berulang)               | 11 CSS Custom Properties di :root (warna, font, shadow, transisi terpusat)                    |
+| Selector CSS  | Selector dasar (class & element)                    | Advanced selectors: combinator > ~, :nth-child(), :focus-within, :is(), :not()                |
+| Responsivitas | 1 breakpoint (@media max-width: 768px)              | Multi-breakpoint bawaan Bootstrap (sm, md, lg, xl) + custom media query                       |
 
 ## Teknologi
+
 - HTML5 semantik (header, nav, main, section, article, aside, footer)
 - Bootstrap 5.3.3 (CDN) + Bootstrap Icons 1.11.3
 - CSS3 kustom: Custom Properties, Advanced Selectors, Flexbox, Grid, Media Queries
@@ -54,6 +58,7 @@ semantik HTML5 yang sudah dibangun sebelumnya. Pembaruan utama meliputi:
 - Git & GitHub Pages
 
 ## Struktur Proyek
+
 ppw-2026-week2-12S24048/
 ├── index.html
 ├── style.css
@@ -61,17 +66,20 @@ ppw-2026-week2-12S24048/
 │ └── desktop.png
 └── README.md
 
-
 ## Screenshot
+
 ![Tampilan Desktop](screenshot/desktop.png)
 
 ## Menjalankan Secara Lokal
+
 ```bash
 git clone https://github.com/oliviatambunan1/ppw-2026-week2-12S24048.git
 cd ppw-2026-week2-12S24048
 git checkout week3-bootstrap
 ```
+
 Buka index.html di browser, atau gunakan ekstensi Live Server di VS Code.
 
 ## Penulis
+
 Olivia Tambunan (12S24048) — S1 Sistem Informasi, Institut Teknologi Del
