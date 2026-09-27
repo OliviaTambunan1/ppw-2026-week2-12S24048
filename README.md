@@ -9,6 +9,7 @@ Dosen Pengampu: Chandro Pardede, S.Kom., M.Sc.
 |---|---|
 | Nama | Olivia Tambunan |
 | NIM | 12S24048 |
+| Kelas | 13 SI |
 | Program Studi / Kelas | S1 Sistem Informasi |
 | Institusi | Institut Teknologi Del |
 
