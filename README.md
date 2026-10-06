@@ -1,184 +1,137 @@
-# Portofolio Web — Olivia Tambunan (12S24048)
+# Portofolio & Service Portal — Olivia Tambunan (12S24048)
 
-Tugas Mandiri Minggu 3 — Mata Kuliah Pemrograman dan Pengujian Aplikasi Web (12S3101)
-Program Studi S1 Sistem Informasi, Institut Teknologi Del
-Dosen Pengampu: Chandro Pardede, S.Kom., M.Sc.
-
-## Identitas Pengembang
-
-| Atribut       | Keterangan             |
-| ------------- | ---------------------- |
-| Nama          | Olivia Tambunan        |
-| NIM           | 12S24048               |
-| Kelas         | 13 SI                  |
-| Program Studi | S1 Sistem Informasi    |
-| Institusi     | Institut Teknologi Del |
+Tugas Mandiri Minggu 4 — Pemrograman dan Pengujian Web (12S3101)
+Refactoring Arsitektural: Decoupled Multi-Tier, Dynamic CSR, dan Network Performance Profiling
 
 ## Live Demo
 
 GitHub Pages: https://oliviatambunan1.github.io/ppw-2026-week2-12S24048/
 
-## Minggu 4 — Pemodelan Arsitektur Web
-
-### Diagram C4 Container
-
-Diagram berikut memetakan batas browser, penyedia berkas statis, CDN, penyedia data JSON, dan REST API. Berkas JSON proyek, profil, dan layanan merupakan sumber data statis yang disajikan oleh host yang sama dengan aplikasi; sumber tersebut bukan server basis data terpisah.
+## 1. Diagram Arsitektur Sistem (C4 Container)
 
 ```mermaid
 flowchart LR
-    pengunjung["Pengunjung"]
+    user(["<b>Pengunjung</b><br/>[Person]"])
 
-    subgraph browser["Peramban — Presentation Tier"]
-        ui["index.html<br/>Antarmuka HTML5 dan Bootstrap"]
-        style["css/custom-style.css<br/>Gaya kustom"]
-        app["js/app.js<br/>Render CSR, filter, modal,<br/>state UI, dan formulir"]
-        service["js/api-service.js<br/>Akses data dan pengiriman HTTP"]
-        ui --> app
-        style -. "mengatur tampilan" .-> ui
-        app --> service
+    subgraph client["Client (Browser)"]
+        direction TB
+        ui["<b>Presentation Tier</b><br/>[index.html, Bootstrap 5, app.js]<br/>Render DOM, modal, UI States"]
+        dal["<b>Data Access Layer</b><br/>[api-service.js, Fetch API]"]
+        ls[("<b>localStorage</b><br/>Riwayat pesanan")]
+        ui --> dal
+        ui --> ls
     end
 
-    subgraph hosting["GitHub Pages — Static Server"]
-        shell["Shell HTML, CSS, dan JavaScript"]
-        data["JSON Providers<br/>data/profile.json<br/>data/projects.json<br/>data/services.json"]
-    end
+    static["<b>Static Server</b><br/>[GitHub Pages]<br/>index.html, css/, js/"]
+    cdn["<b>CDN</b><br/>[jsDelivr, Google Fonts]<br/>Bootstrap, Icons, font"]
+    json["<b>JSON Providers</b><br/>[data/*.json]<br/>profile, projects, services"]
+    api["<b>REST API (simulasi)</b><br/>[Mock endpoint]<br/>Menerima POST JSON"]
 
-    cdn["CDN<br/>Bootstrap 5.3 dan aset antarmuka"]
-    rest["REST API mock<br/>JSONPlaceholder"]
-
-    pengunjung -->|"menggunakan"| ui
-    browser -->|"GET berkas aplikasi"| shell
-    service -->|"GET data JSON"| data
-    browser -->|"memuat dependensi antarmuka"| cdn
-    service -->|"POST JSON formulir layanan"| rest
+    user -->|"HTTPS"| ui
+    ui -->|"GET shell"| static
+    ui -->|"GET pustaka UI"| cdn
+    dal -->|"GET /data/*.json"| json
+    dal -.->|"POST JSON DTO"| api
+    static --- json
 ```
 
-### Tanggung Jawab dan Aliran Data
+Garis putus-putus menandai alur yang disimulasikan: GitHub Pages hanya menyajikan berkas statis, sehingga
+endpoint REST pada proyek ini berupa mock di `api-service.js`.
 
-| Komponen | Lapisan | Tanggung jawab |
-|---|---|---|
-| Peramban (`index.html`, `css/custom-style.css`, `js/app.js`) | Presentation Tier | Menyajikan antarmuka, mengelola interaksi dan filter, merender kartu serta modal secara dinamis, dan menampilkan state UI. |
-| `js/api-service.js` | Application / Service Logic Tier | Mengisolasi pemanggilan HTTP, membaca sumber JSON, memeriksa respons, dan mengirim payload formulir ke REST API. |
-| GitHub Pages | Static Server | Mengirim shell aplikasi dan berkas statis melalui HTTP(S); tidak menjalankan logika aplikasi sisi server. |
-| `data/*.json` di GitHub Pages | JSON Provider | Menyediakan data profil, proyek, dan paket layanan sebagai berkas terstruktur yang dibaca peramban. |
-| CDN Bootstrap | CDN | Menyediakan aset Bootstrap yang dirujuk oleh halaman; kegagalan akses CDN dapat memengaruhi gaya atau komponen Bootstrap. |
-| JSONPlaceholder | REST API eksternal (mock) | Menerima POST formulir untuk demonstrasi request jaringan; endpoint publik ini bukan penyimpanan pesanan produksi. |
+## 2. Narasi Separation of Concerns
 
-Alur baca dimulai saat peramban meminta shell aplikasi dari host statis. JavaScript pada Presentation Tier kemudian meminta berkas JSON melalui `api-service.js`; `app.js` mengubah data yang diterima menjadi elemen antarmuka di sisi klien. Alur kirim formulir berbeda: `api-service.js` mengirim payload JSON dengan HTTP POST ke endpoint mock JSONPlaceholder dan antarmuka menampilkan hasilnya tanpa navigasi ulang. Penyimpanan status/pesanan lokal yang akan digunakan antarmuka berada di sisi klien (`localStorage`), bukan di GitHub Pages atau endpoint mock.
+Pada Minggu 3, seluruh konten (empat kartu proyek, empat modal, dan struktur formulir) ditulis langsung di
+`index.html` sepanjang 857 baris. Pola monolitik statis ini membuat data dan tampilan menyatu: menambah satu
+proyek berarti mengubah markup di beberapa tempat sekaligus (kartu, modal, tabel rekap).
 
-Pemisahan ini menerapkan *Separation of Concerns*: HTML dan CSS menangani presentasi, `app.js` menangani kontrol interaksi dan render, `api-service.js` menjadi batas akses jaringan, berkas JSON menyimpan konten terstruktur, dan layanan REST mock menangani demonstrasi request. Dengan batas ini, sumber data atau endpoint dapat diganti tanpa menanam ulang konten proyek ke dalam markup kartu. Karena berkas JSON dan aplikasi sama-sama statis, model ini tidak menyediakan autentikasi, validasi bisnis tepercaya, maupun penyimpanan pesanan sisi server.
+Refactoring Minggu 4 memisahkan tiga kepentingan:
 
-### Perbandingan Paradigma Rendering
+1. **Presentation Tier** (`index.html`, `custom-style.css`, `app.js`): `index.html` hanya berisi shell dan
+   titik penampung konten; `app.js` merakit DOM dari data dan menangani event.
+2. **Application/API Tier** (`api-service.js`): satu-satunya modul yang tahu lokasi dan format sumber data.
+   `app.js` memanggil fungsi seperti `ApiService.getProjects()` tanpa peduli sumbernya JSON atau REST asli.
+3. **Data Storage Tier** (`data/*.json` dan `localStorage`): data dapat diubah tanpa menyentuh kode.
 
-| Paradigma | Tempat render utama | Implikasi pada aplikasi ini |
-|---|---|---|
-| SSR (Server-Side Rendering) | Server aplikasi merangkai HTML untuk setiap request. | Membutuhkan server runtime dan logika render sisi server; tidak menjadi pilihan untuk hosting statis GitHub Pages. |
-| CSR (Client-Side Rendering) | Peramban merangkai UI menggunakan JavaScript dan data yang diminta asinkron. | Dipakai untuk mengisi kartu proyek, menerapkan filter, dan memperbarui state UI tanpa *full page reload*. Shell awal ringan, tetapi render data bergantung pada JavaScript dan request JSON. |
-| Jamstack / decoupled static | Aset statis disajikan dari CDN/hosting statis; interaksi dinamis menggunakan API. | Sesuai dengan GitHub Pages, JSON statis, dan request REST mock. Tidak memerlukan server aplikasi khusus, tetapi kemampuan backend dan persistensi produksi tidak disediakan oleh mock tersebut. |
+Hasilnya, perubahan data cukup dilakukan di satu berkas, layer data dapat diuji terpisah dari DOM, dan sumber
+data dapat diganti ke REST API sungguhan tanpa menulis ulang Presentation Tier. Konsekuensinya, halaman
+bergantung pada JavaScript dan menampilkan data setelah satu request tambahan selesai.
 
-### Perbandingan Sebelum dan Sesudah Refactoring Minggu 4
+## 3. Komparasi Paradigma Rendering
 
-| Aspek | Sebelum (Minggu 3) | Sesudah (Minggu 4) |
-|---|---|---|
-| Sumber data portofolio | Konten proyek dan katalog layanan berada di halaman statis. | Profil, proyek, dan layanan dibaca dari `data/profile.json`, `data/projects.json`, dan `data/services.json`. |
-| Render proyek | Kartu proyek ditulis pada HTML. | Kartu dirender di browser setelah data proyek dimuat asinkron melalui `api-service.js`. |
-| Detail proyek | Modal terpisah untuk masing-masing proyek. | Satu modal universal diisi berdasarkan ID proyek dan dibuka melalui Bootstrap Modal API. |
-| Formulir layanan | Formulir belum mengirim payload melalui REST API. | Formulir mengirim JSON dengan HTTP POST ke JSONPlaceholder tanpa navigasi ulang; salinan state pesanan disimpan di `localStorage`. |
-| Hosting dan persistensi | Halaman statis. | Tetap menggunakan hosting statis; JSONPlaceholder adalah API mock dan `localStorage` hanya menyimpan pesanan di perangkat/peramban pengguna. |
+| Parameter              | Server-Side Rendering (SSR)   | Client-Side Rendering (CSR)         | Jamstack / Decoupled Static    |
+| ---------------------- | ----------------------------- | ------------------------------------ | ------------------------------- |
+| Perakitan DOM          | Di server, per request        | Di browser via JavaScript           | Saat build-time dan hidrasi API|
+| Beban server           | Tinggi                        | Sangat rendah (hanya transfer data) | Minimal (aset dari CDN)        |
+| Time to First Byte     | Menengah hingga lambat        | Sangat cepat (HTML shell mini)      | Sangat cepat (cache CDN)       |
+| Interaktivitas         | Reload penuh tiap navigasi    | Mulus                               | Mulus dan reaktif              |
+| Hosting                | Server runtime aktif 24/7     | Static CDN (GitHub Pages)           | Static CDN + serverless/API    |
 
-### Profil Jaringan dengan DevTools
+Proyek ini memakai **CSR di atas static hosting**: shell dikirim sekali dari GitHub Pages, lalu JavaScript
+mengambil JSON dan merakit DOM.
 
-Isi tabel berikut berdasarkan pengamatan nyata di tab **Network** DevTools pada deployment yang diuji. Untuk *Cold Load*, mulai dengan cache nonaktif di DevTools lalu muat ulang. Untuk *Warm Load*, aktifkan cache dan muat ulang halaman setelah aset sempat dimuat. Catat nilai yang benar-benar terlihat; status `304 Not Modified` hanya dicatat bila muncul pada respons aktual.
+## 4. Tabel Komparasi Sebelum vs Sesudah Refactoring
 
-| Pengukuran | Cold Load | Warm Load |
-|---|---|---|
-| Status HTTP dokumen utama | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
-| Status HTTP `data/projects.json` | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
-| Status HTTP `data/profile.json` dan `data/services.json` | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
-| Ukuran transfer | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
-| TTFB | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
-| FCP | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
-| Respons `304 Not Modified` (resource dan status aktual) | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+| Aspek | Minggu 3 (Before) | Minggu 4 (After) |
+| --- | --- | --- |
+| Struktur `index.html` | 857 baris, konten hardcoded | Shell HTML ~120 baris, konten diinjeksi JS |
+| Data proyek | 4 kartu statis di HTML | `data/projects.json`, dirender dinamis |
+| Modal | 4 elemen modal terpisah di HTML | 1 universal modal, diisi via `data-id` |
+| Filter kategori | Tidak ada | Filter dinamis, state Empty ditangani |
+| Pengiriman form | Tidak ada | Fetch POST ke REST API + localStorage |
+| Penambahan proyek baru | Edit markup di 3 tempat | Tambah 1 objek di `projects.json` |
+| Pemisahan kepentingan | Tidak ada (monolitik) | Presentation / DAL / Data Storage |
 
-**Analisis cache:** [JELASKAN PERBEDAAN COLD LOAD DAN WARM LOAD BERDASARKAN HASIL DEVTOOLS. JIKA TIDAK ADA RESPONS 304, CATAT STATUS YANG TERAMATI; JANGAN MENGASUMSIKAN 304.]
+## 5. Profil Jaringan (DevTools Network)
 
-**Screenshot waterfall Network DevTools:** [LAMPIRKAN SCREENSHOT WATERFALL DARI DEVTOOLS DI SINI]
+### Tabel Cold Load vs Warm Load
 
-## Ringkasan Pembaruan Minggu 3
+| Metrik | Cold Load | Warm Load |
+| --- | --- | --- |
+| Total requests | 19 | 21 |
+| Data transferred | 289 kB | 1.3 kB |
+| Finish time | 1.38 s | 1.73 s |
+| TTFB (index.html) | 341.52 ms | 499 ms |
+| Status dominan | 200 OK | 304 Not Modified |
 
-Proyek portofolio dari Minggu 2 (HTML5 semantik + CSS3 murni) direfaktor total menggunakan
-Bootstrap 5.3.3 yang dipadukan dengan Custom CSS Overrides, tanpa menghilangkan struktur
-semantik HTML5 yang sudah dibangun sebelumnya. Pembaruan utama meliputi:
+### Analisis
 
-- Integrasi Bootstrap 5.3.3 CDN (CSS & JS Bundle) + Bootstrap Icons, dimuat sebelum style.css kustom.
-- Responsive Navbar sticky-top dengan brand identity dan hamburger toggle (navbar-toggler + collapse).
-- Hero Section dua kolom (Bootstrap Grid) dengan kartu profil dan dua tombol CTA.
-- Grid Portofolio 12-kolom (row-cols-1 row-cols-md-2 row-cols-lg-3 g-4) berisi 4 kartu proyek,
-  masing-masing terhubung ke Bootstrap Modal dengan konten detail berbeda.
-- Formulir Layanan dimodernisasi dengan Floating Labels, Input Group berikon, select,
-  radio, checkbox, serta umpan balik validasi visual (valid-feedback / invalid-feedback).
-- CSS Custom Properties pada :root (11 variabel: warna, font, shadow, transisi) untuk tema
-  personal yang konsisten, dipadukan dengan Advanced Selectors (>, ~, :hover, :focus-visible,
-  :focus-within, :nth-child(), :is(), :not()) — tanpa satupun !important.
+Pada **Cold Load** (cache dinonaktifkan), browser mengunduh seluruh aset dari server: HTML shell,
+Bootstrap CSS/JS, Google Fonts, `custom-style.css`, `api-service.js`, `app.js`, dan tiga berkas JSON.
+Total transfer mencapai 289 kB dengan TTFB 341.52 ms — waktu ini mencerminkan latensi GitHub Pages CDN
+untuk pengunjung baru.
 
-## Perbandingan: Sebelum vs Sesudah Integrasi Framework
+Pada **Warm Load** (cache aktif, reload biasa), browser mengirim request bersyarat ke server. Server
+merespons **304 Not Modified** untuk `index.html`, `custom-style.css`, `api-service.js`, `app.js`, dan
+seluruh berkas JSON — artinya tidak ada body yang dikirim ulang. Total transfer turun drastis menjadi
+**1.3 kB** (hanya header respons). Aset Bootstrap dan font dilayani dari **memory cache** dan
+**disk cache** sehingga durasinya 0–4 ms.
 
-| Aspek         | Sebelum (Minggu 2 — CSS Murni)                      | Sesudah (Minggu 3 — Bootstrap 5)                                                              |
-| ------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| CSS Framework | Tidak ada, seluruh gaya ditulis manual di style.css | Bootstrap 5.3.3 (CDN) + Bootstrap Icons, di-override dengan style.css kustom                  |
-| Sistem Grid   | CSS Grid manual (grid-template-columns)             | Grid 12-kolom Bootstrap (row-cols-1 row-cols-md-2 row-cols-lg-3)                              |
-| Navigasi      | Nav statis tanpa menu mobile                        | Navbar sticky-top dengan hamburger toggle (navbar-toggler + collapse) responsif               |
-| Detail Proyek | Tidak ada tampilan detail, hanya kartu statis       | Bootstrap Modal Dialog interaktif per proyek (4 modal berbeda)                                |
-| Formulir      | Input polos dengan label di atas input              | Floating Labels (.form-floating), Input Group berikon, validasi visual valid/invalid-feedback |
-| Ikon          | Tidak ada ikon                                      | Bootstrap Icons pada tombol, navbar, dan form                                                 |
-| Variabel Tema | Warna ditulis langsung (hex berulang)               | 11 CSS Custom Properties di :root (warna, font, shadow, transisi terpusat)                    |
-| Selector CSS  | Selector dasar (class & element)                    | Advanced selectors: combinator > ~, :nth-child(), :focus-within, :is(), :not()                |
-| Responsivitas | 1 breakpoint (@media max-width: 768px)              | Multi-breakpoint bawaan Bootstrap (sm, md, lg, xl) + custom media query                       |
+Status 304 membuktikan bahwa GitHub Pages mengirimkan header `ETag` dan `Cache-Control` yang benar pada
+respons sebelumnya. Browser menyimpan salinan lokal dan hanya memvalidasi kesegaran konten, bukan
+mengunduh ulang — inilah mekanisme HTTP caching yang membuat Warm Load hampir tidak membutuhkan bandwidth.
 
-## Teknologi
+### Waterfall Cold Load
 
-- HTML5 semantik (header, nav, main, section, article, aside, footer)
-- Bootstrap 5.3.3 (CDN) + Bootstrap Icons 1.11.3
-- CSS3 kustom: Custom Properties, Advanced Selectors, Flexbox, Grid, Media Queries
-- Google Fonts: Playfair Display & Plus Jakarta Sans
-- Git & GitHub Pages
+![Waterfall Cold Load](screenshot/waterfall-cold.png)
+
+### Waterfall Warm Load
+
+![Waterfall Warm Load](screenshot/waterfall-warm.png)
 
 ## Struktur Proyek
 
-ppw-2026-week2-12S24048/
+```
 ├── index.html
-├── css/
-│   └── custom-style.css
+├── css/custom-style.css
 ├── data/
 │   ├── profile.json
 │   ├── projects.json
 │   └── services.json
-├── img/
-│   ├── jexpress.svg
-│   ├── lost-and-found.svg
-│   ├── temani.svg
-│   └── the-kit-co.svg
 ├── js/
 │   ├── api-service.js
 │   └── app.js
 ├── screenshot/
-│ └── desktop.png
+│   ├── waterfall-cold.png
+│   └── waterfall-warm.png
 └── README.md
-
-## Screenshot
-
-![Tampilan Desktop](screenshot/desktop.png)
-
-## Menjalankan Secara Lokal
-
-```bash
-git clone https://github.com/oliviatambunan1/ppw-2026-week2-12S24048.git
-cd ppw-2026-week2-12S24048
-git checkout week4-architecture
 ```
-
-Jalankan proyek melalui server lokal seperti ekstensi Live Server di VS Code agar permintaan Fetch ke berkas JSON dapat diuji melalui HTTP.
-
-## Penulis
-
-Olivia Tambunan (12S24048) — S1 Sistem Informasi, Institut Teknologi Del
