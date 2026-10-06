@@ -76,6 +76,34 @@ Pemisahan ini menerapkan *Separation of Concerns*: HTML dan CSS menangani presen
 | CSR (Client-Side Rendering) | Peramban merangkai UI menggunakan JavaScript dan data yang diminta asinkron. | Dipakai untuk mengisi kartu proyek, menerapkan filter, dan memperbarui state UI tanpa *full page reload*. Shell awal ringan, tetapi render data bergantung pada JavaScript dan request JSON. |
 | Jamstack / decoupled static | Aset statis disajikan dari CDN/hosting statis; interaksi dinamis menggunakan API. | Sesuai dengan GitHub Pages, JSON statis, dan request REST mock. Tidak memerlukan server aplikasi khusus, tetapi kemampuan backend dan persistensi produksi tidak disediakan oleh mock tersebut. |
 
+### Perbandingan Sebelum dan Sesudah Refactoring Minggu 4
+
+| Aspek | Sebelum (Minggu 3) | Sesudah (Minggu 4) |
+|---|---|---|
+| Sumber data portofolio | Konten proyek dan katalog layanan berada di halaman statis. | Profil, proyek, dan layanan dibaca dari `data/profile.json`, `data/projects.json`, dan `data/services.json`. |
+| Render proyek | Kartu proyek ditulis pada HTML. | Kartu dirender di browser setelah data proyek dimuat asinkron melalui `api-service.js`. |
+| Detail proyek | Modal terpisah untuk masing-masing proyek. | Satu modal universal diisi berdasarkan ID proyek dan dibuka melalui Bootstrap Modal API. |
+| Formulir layanan | Formulir belum mengirim payload melalui REST API. | Formulir mengirim JSON dengan HTTP POST ke JSONPlaceholder tanpa navigasi ulang; salinan state pesanan disimpan di `localStorage`. |
+| Hosting dan persistensi | Halaman statis. | Tetap menggunakan hosting statis; JSONPlaceholder adalah API mock dan `localStorage` hanya menyimpan pesanan di perangkat/peramban pengguna. |
+
+### Profil Jaringan dengan DevTools
+
+Isi tabel berikut berdasarkan pengamatan nyata di tab **Network** DevTools pada deployment yang diuji. Untuk *Cold Load*, mulai dengan cache nonaktif di DevTools lalu muat ulang. Untuk *Warm Load*, aktifkan cache dan muat ulang halaman setelah aset sempat dimuat. Catat nilai yang benar-benar terlihat; status `304 Not Modified` hanya dicatat bila muncul pada respons aktual.
+
+| Pengukuran | Cold Load | Warm Load |
+|---|---|---|
+| Status HTTP dokumen utama | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+| Status HTTP `data/projects.json` | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+| Status HTTP `data/profile.json` dan `data/services.json` | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+| Ukuran transfer | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+| TTFB | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+| FCP | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+| Respons `304 Not Modified` (resource dan status aktual) | [ISI DARI DEVTOOLS] | [ISI DARI DEVTOOLS] |
+
+**Analisis cache:** [JELASKAN PERBEDAAN COLD LOAD DAN WARM LOAD BERDASARKAN HASIL DEVTOOLS. JIKA TIDAK ADA RESPONS 304, CATAT STATUS YANG TERAMATI; JANGAN MENGASUMSIKAN 304.]
+
+**Screenshot waterfall Network DevTools:** [LAMPIRKAN SCREENSHOT WATERFALL DARI DEVTOOLS DI SINI]
+
 ## Ringkasan Pembaruan Minggu 3
 
 Proyek portofolio dari Minggu 2 (HTML5 semantik + CSS3 murni) direfaktor total menggunakan
@@ -146,10 +174,10 @@ ppw-2026-week2-12S24048/
 ```bash
 git clone https://github.com/oliviatambunan1/ppw-2026-week2-12S24048.git
 cd ppw-2026-week2-12S24048
-git checkout week3-bootstrap
+git checkout week4-architecture
 ```
 
-Buka index.html di browser, atau gunakan ekstensi Live Server di VS Code.
+Jalankan proyek melalui server lokal seperti ekstensi Live Server di VS Code agar permintaan Fetch ke berkas JSON dapat diuji melalui HTTP.
 
 ## Penulis
 
