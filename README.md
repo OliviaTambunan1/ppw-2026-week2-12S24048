@@ -58,40 +58,40 @@ bergantung pada JavaScript dan menampilkan data setelah satu request tambahan se
 
 ## 3. Komparasi Paradigma Rendering
 
-| Parameter              | Server-Side Rendering (SSR)   | Client-Side Rendering (CSR)         | Jamstack / Decoupled Static    |
-| ---------------------- | ----------------------------- | ------------------------------------ | ------------------------------- |
-| Perakitan DOM          | Di server, per request        | Di browser via JavaScript           | Saat build-time dan hidrasi API|
-| Beban server           | Tinggi                        | Sangat rendah (hanya transfer data) | Minimal (aset dari CDN)        |
-| Time to First Byte     | Menengah hingga lambat        | Sangat cepat (HTML shell mini)      | Sangat cepat (cache CDN)       |
-| Interaktivitas         | Reload penuh tiap navigasi    | Mulus                               | Mulus dan reaktif              |
-| Hosting                | Server runtime aktif 24/7     | Static CDN (GitHub Pages)           | Static CDN + serverless/API    |
+| Parameter          | Server-Side Rendering (SSR) | Client-Side Rendering (CSR)         | Jamstack / Decoupled Static     |
+| ------------------ | --------------------------- | ----------------------------------- | ------------------------------- |
+| Perakitan DOM      | Di server, per request      | Di browser via JavaScript           | Saat build-time dan hidrasi API |
+| Beban server       | Tinggi                      | Sangat rendah (hanya transfer data) | Minimal (aset dari CDN)         |
+| Time to First Byte | Menengah hingga lambat      | Sangat cepat (HTML shell mini)      | Sangat cepat (cache CDN)        |
+| Interaktivitas     | Reload penuh tiap navigasi  | Mulus                               | Mulus dan reaktif               |
+| Hosting            | Server runtime aktif 24/7   | Static CDN (GitHub Pages)           | Static CDN + serverless/API     |
 
 Proyek ini memakai **CSR di atas static hosting**: shell dikirim sekali dari GitHub Pages, lalu JavaScript
 mengambil JSON dan merakit DOM.
 
 ## 4. Tabel Komparasi Sebelum vs Sesudah Refactoring
 
-| Aspek | Minggu 3 (Before) | Minggu 4 (After) |
-| --- | --- | --- |
-| Struktur `index.html` | 857 baris, konten hardcoded | Shell HTML ~120 baris, konten diinjeksi JS |
-| Data proyek | 4 kartu statis di HTML | `data/projects.json`, dirender dinamis |
-| Modal | 4 elemen modal terpisah di HTML | 1 universal modal, diisi via `data-id` |
-| Filter kategori | Tidak ada | Filter dinamis, state Empty ditangani |
-| Pengiriman form | Tidak ada | Fetch POST ke REST API + localStorage |
-| Penambahan proyek baru | Edit markup di 3 tempat | Tambah 1 objek di `projects.json` |
-| Pemisahan kepentingan | Tidak ada (monolitik) | Presentation / DAL / Data Storage |
+| Aspek                  | Minggu 3 (Before)               | Minggu 4 (After)                           |
+| ---------------------- | ------------------------------- | ------------------------------------------ |
+| Struktur `index.html`  | 857 baris, konten hardcoded     | Shell HTML ~120 baris, konten diinjeksi JS |
+| Data proyek            | 4 kartu statis di HTML          | `data/projects.json`, dirender dinamis     |
+| Modal                  | 4 elemen modal terpisah di HTML | 1 universal modal, diisi via `data-id`     |
+| Filter kategori        | Tidak ada                       | Filter dinamis, state Empty ditangani      |
+| Pengiriman form        | Tidak ada                       | Fetch POST ke REST API + localStorage      |
+| Penambahan proyek baru | Edit markup di 3 tempat         | Tambah 1 objek di `projects.json`          |
+| Pemisahan kepentingan  | Tidak ada (monolitik)           | Presentation / DAL / Data Storage          |
 
 ## 5. Profil Jaringan (DevTools Network)
 
 ### Tabel Cold Load vs Warm Load
 
-| Metrik | Cold Load | Warm Load |
-| --- | --- | --- |
-| Total requests | 19 | 21 |
-| Data transferred | 289 kB | 1.3 kB |
-| Finish time | 1.38 s | 1.73 s |
-| TTFB (index.html) | 341.52 ms | 499 ms |
-| Status dominan | 200 OK | 304 Not Modified |
+| Metrik            | Cold Load | Warm Load        |
+| ----------------- | --------- | ---------------- |
+| Total requests    | 19        | 21               |
+| Data transferred  | 289 kB    | 1.3 kB           |
+| Finish time       | 1.38 s    | 1.73 s           |
+| TTFB (index.html) | 341.52 ms | 499 ms           |
+| Status dominan    | 200 OK    | 304 Not Modified |
 
 ### Analisis
 
