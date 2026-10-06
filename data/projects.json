@@ -1,0 +1,100 @@
+[
+  {
+    "id": "jexpress",
+    "title": "JExpress",
+    "description": "Aplikasi pengiriman paket yang dikembangkan menggunakan konsep Object-Oriented Programming.",
+    "category": "Application",
+    "tags": [
+      "Java",
+      "PostgreSQL"
+    ],
+    "image": "img/jexpress.svg",
+    "link": "[ISI URL REPO PROYEK]",
+    "metrics": {
+      "status": "Selesai",
+      "jenis": "Application"
+    },
+    "features": [
+      "Manajemen data pengirim dan penerima",
+      "Pelacakan status pengiriman paket",
+      "Perhitungan otomatis biaya berdasarkan berat",
+      "Laporan transaksi pengiriman"
+    ],
+    "detail": "Proyek mata kuliah Pemrograman Berorientasi Objek.",
+    "teknologiDetail": "Java, PostgreSQL, JDBC, Java Collections Framework"
+  },
+  {
+    "id": "temani",
+    "title": "Temani",
+    "description": "Perancangan aplikasi informasi imunisasi untuk membantu orang tua mendapatkan informasi yang lebih mudah.",
+    "category": "Design",
+    "tags": [
+      "Figma",
+      "UI/UX"
+    ],
+    "image": "img/temani.svg",
+    "link": "[ISI URL REPO PROYEK]",
+    "metrics": {
+      "status": "Selesai",
+      "jenis": "Design"
+    },
+    "features": [
+      "Riset pengguna melalui wawancara dan kuesioner",
+      "Pembuatan persona dan user journey map",
+      "Wireframing dan prototipe interaktif di Figma",
+      "Usability testing dan iterasi desain"
+    ],
+    "detail": "Proyek UI/UX yang berfokus pada kemudahan orang tua dalam mengakses informasi jadwal dan jenis imunisasi anak.",
+    "teknologiDetail": "Figma, Design Thinking, UX Research"
+  },
+  {
+    "id": "lost-and-found",
+    "title": "Lost & Found",
+    "description": "Website pelaporan barang hilang dan ditemukan untuk lingkungan asrama.",
+    "category": "Website",
+    "tags": [
+      "Laravel",
+      "MySQL"
+    ],
+    "image": "img/lost-and-found.svg",
+    "link": "[ISI URL REPO PROYEK]",
+    "metrics": {
+      "status": "Developing",
+      "jenis": "Website"
+    },
+    "features": [
+      "Pelaporan barang hilang dengan foto dan deskripsi",
+      "Pencarian berdasarkan kategori dan lokasi",
+      "Sistem klaim dan verifikasi barang",
+      "Notifikasi kepada pelapor saat barang ditemukan"
+    ],
+    "detail": "Membantu penghuni asrama melaporkan dan mencari barang hilang maupun ditemukan secara terstruktur dan mudah.",
+    "teknologiDetail": "Laravel, MySQL, Bootstrap, Blade Templating"
+  },
+  {
+    "id": "the-kit-co",
+    "title": "The Kit Co",
+    "description": "Platform penyewaan alat mendaki gunung berbasis web dengan pengelolaan reservasi, transaksi, dan kondisi peralatan.",
+    "category": "Website",
+    "tags": [
+      "System Analysis",
+      "Web"
+      
+    ],
+    "image": "img/the-kit-co.svg",
+    "link": "[ISI URL REPO PROYEK]",
+    "metrics": {
+      "status": "Selesai",
+      "jenis": "Website",
+      "teknologiPadaRekap": "Figma"
+    },
+    "features": [
+      "Manajemen akun dan autentikasi pengguna",
+      "Reservasi dan transaksi penyewaan",
+      "Manajemen operasional peralatan",
+      "Inspeksi kondisi peralatan",
+      "Perhitungan denda keterlambatan atau kerusakan"
+    ],
+    "detail": "Sistem memiliki dua aktor utama, yaitu Customer sebagai penyewa dan Admin sebagai pengelola sistem. Ruang lingkupnya berfokus pada layanan penyewaan alat mendaki gunung dan tidak mencakup layanan pemandu wisata maupun transportasi."
+  }
+]

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
+  <title id="title">Ilustrasi Lost &amp; Found: kaca pembesar mencari barang</title>
+  <rect width="640" height="360" fill="#6d7565"/>
+  <circle cx="277" cy="153" r="105" fill="#fffdf8" opacity=".2"/>
+  <circle cx="277" cy="153" r="76" fill="none" stroke="#fffdf8" stroke-width="22"/>
+  <path d="m334 210 91 91" stroke="#fffdf8" stroke-linecap="round" stroke-width="32"/>
+  <path d="M234 156h86M277 113v86" stroke="#9a4f38" stroke-linecap="round" stroke-width="14"/>
+</svg>

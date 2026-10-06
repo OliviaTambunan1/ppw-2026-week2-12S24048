@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
+  <title id="title">Ilustrasi Temani: hati dan lingkaran dukungan</title>
+  <rect width="640" height="360" fill="#5c6a55"/>
+  <circle cx="320" cy="180" r="132" fill="#fffdf8" opacity=".16"/>
+  <path d="M320 279 209 179c-65-59 26-148 91-83l20 21 20-21c65-65 156 24 91 83z" fill="#fffdf8"/>
+  <path d="M320 148v92M274 194h92" fill="none" stroke="#9a4f38" stroke-linecap="round" stroke-width="18"/>
+</svg>

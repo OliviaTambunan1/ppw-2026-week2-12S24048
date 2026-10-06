@@ -1,0 +1,30 @@
+[
+  {
+    "id": "web",
+    "nama": "Web Development",
+    "deskripsi": "Layanan pengembangan website.",
+    "fitur": [
+      "Responsive Design",
+      "SEO Dasar"
+    ],
+    "tarif": "[ISI TARIF]"
+  },
+  {
+    "id": "uiux",
+    "nama": "UI/UX Design",
+    "deskripsi": "Layanan perancangan antarmuka dan pengalaman pengguna.",
+    "fitur": [
+      "Review UI/UX"
+    ],
+    "tarif": "[ISI TARIF]"
+  },
+  {
+    "id": "consultation",
+    "nama": "Konsultasi",
+    "deskripsi": "Konsultasi mengenai kebutuhan proyek digital.",
+    "fitur": [
+      "Diskusi kebutuhan layanan"
+    ],
+    "tarif": "[ISI TARIF]"
+  }
+]

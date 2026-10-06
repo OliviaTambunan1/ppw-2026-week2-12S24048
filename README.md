@@ -18,6 +18,64 @@ Dosen Pengampu: Chandro Pardede, S.Kom., M.Sc.
 
 GitHub Pages: https://oliviatambunan1.github.io/ppw-2026-week2-12S24048/
 
+## Minggu 4 — Pemodelan Arsitektur Web
+
+### Diagram C4 Container
+
+Diagram berikut memetakan batas browser, penyedia berkas statis, CDN, penyedia data JSON, dan REST API. Berkas JSON proyek, profil, dan layanan merupakan sumber data statis yang disajikan oleh host yang sama dengan aplikasi; sumber tersebut bukan server basis data terpisah.
+
+```mermaid
+flowchart LR
+    pengunjung["Pengunjung"]
+
+    subgraph browser["Peramban — Presentation Tier"]
+        ui["index.html<br/>Antarmuka HTML5 dan Bootstrap"]
+        style["css/custom-style.css<br/>Gaya kustom"]
+        app["js/app.js<br/>Render CSR, filter, modal,<br/>state UI, dan formulir"]
+        service["js/api-service.js<br/>Akses data dan pengiriman HTTP"]
+        ui --> app
+        style -. "mengatur tampilan" .-> ui
+        app --> service
+    end
+
+    subgraph hosting["GitHub Pages — Static Server"]
+        shell["Shell HTML, CSS, dan JavaScript"]
+        data["JSON Providers<br/>data/profile.json<br/>data/projects.json<br/>data/services.json"]
+    end
+
+    cdn["CDN<br/>Bootstrap 5.3 dan aset antarmuka"]
+    rest["REST API mock<br/>JSONPlaceholder"]
+
+    pengunjung -->|"menggunakan"| ui
+    browser -->|"GET berkas aplikasi"| shell
+    service -->|"GET data JSON"| data
+    browser -->|"memuat dependensi antarmuka"| cdn
+    service -->|"POST JSON formulir layanan"| rest
+```
+
+### Tanggung Jawab dan Aliran Data
+
+| Komponen | Lapisan | Tanggung jawab |
+|---|---|---|
+| Peramban (`index.html`, `css/custom-style.css`, `js/app.js`) | Presentation Tier | Menyajikan antarmuka, mengelola interaksi dan filter, merender kartu serta modal secara dinamis, dan menampilkan state UI. |
+| `js/api-service.js` | Application / Service Logic Tier | Mengisolasi pemanggilan HTTP, membaca sumber JSON, memeriksa respons, dan mengirim payload formulir ke REST API. |
+| GitHub Pages | Static Server | Mengirim shell aplikasi dan berkas statis melalui HTTP(S); tidak menjalankan logika aplikasi sisi server. |
+| `data/*.json` di GitHub Pages | JSON Provider | Menyediakan data profil, proyek, dan paket layanan sebagai berkas terstruktur yang dibaca peramban. |
+| CDN Bootstrap | CDN | Menyediakan aset Bootstrap yang dirujuk oleh halaman; kegagalan akses CDN dapat memengaruhi gaya atau komponen Bootstrap. |
+| JSONPlaceholder | REST API eksternal (mock) | Menerima POST formulir untuk demonstrasi request jaringan; endpoint publik ini bukan penyimpanan pesanan produksi. |
+
+Alur baca dimulai saat peramban meminta shell aplikasi dari host statis. JavaScript pada Presentation Tier kemudian meminta berkas JSON melalui `api-service.js`; `app.js` mengubah data yang diterima menjadi elemen antarmuka di sisi klien. Alur kirim formulir berbeda: `api-service.js` mengirim payload JSON dengan HTTP POST ke endpoint mock JSONPlaceholder dan antarmuka menampilkan hasilnya tanpa navigasi ulang. Penyimpanan status/pesanan lokal yang akan digunakan antarmuka berada di sisi klien (`localStorage`), bukan di GitHub Pages atau endpoint mock.
+
+Pemisahan ini menerapkan *Separation of Concerns*: HTML dan CSS menangani presentasi, `app.js` menangani kontrol interaksi dan render, `api-service.js` menjadi batas akses jaringan, berkas JSON menyimpan konten terstruktur, dan layanan REST mock menangani demonstrasi request. Dengan batas ini, sumber data atau endpoint dapat diganti tanpa menanam ulang konten proyek ke dalam markup kartu. Karena berkas JSON dan aplikasi sama-sama statis, model ini tidak menyediakan autentikasi, validasi bisnis tepercaya, maupun penyimpanan pesanan sisi server.
+
+### Perbandingan Paradigma Rendering
+
+| Paradigma | Tempat render utama | Implikasi pada aplikasi ini |
+|---|---|---|
+| SSR (Server-Side Rendering) | Server aplikasi merangkai HTML untuk setiap request. | Membutuhkan server runtime dan logika render sisi server; tidak menjadi pilihan untuk hosting statis GitHub Pages. |
+| CSR (Client-Side Rendering) | Peramban merangkai UI menggunakan JavaScript dan data yang diminta asinkron. | Dipakai untuk mengisi kartu proyek, menerapkan filter, dan memperbarui state UI tanpa *full page reload*. Shell awal ringan, tetapi render data bergantung pada JavaScript dan request JSON. |
+| Jamstack / decoupled static | Aset statis disajikan dari CDN/hosting statis; interaksi dinamis menggunakan API. | Sesuai dengan GitHub Pages, JSON statis, dan request REST mock. Tidak memerlukan server aplikasi khusus, tetapi kemampuan backend dan persistensi produksi tidak disediakan oleh mock tersebut. |
+
 ## Ringkasan Pembaruan Minggu 3
 
 Proyek portofolio dari Minggu 2 (HTML5 semantik + CSS3 murni) direfaktor total menggunakan
@@ -61,7 +119,20 @@ semantik HTML5 yang sudah dibangun sebelumnya. Pembaruan utama meliputi:
 
 ppw-2026-week2-12S24048/
 ├── index.html
-├── style.css
+├── css/
+│   └── custom-style.css
+├── data/
+│   ├── profile.json
+│   ├── projects.json
+│   └── services.json
+├── img/
+│   ├── jexpress.svg
+│   ├── lost-and-found.svg
+│   ├── temani.svg
+│   └── the-kit-co.svg
+├── js/
+│   ├── api-service.js
+│   └── app.js
 ├── screenshot/
 │ └── desktop.png
 └── README.md

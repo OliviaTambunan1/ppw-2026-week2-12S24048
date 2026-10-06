@@ -1,0 +1,13 @@
+{
+  "nama": "Olivia Tambunan",
+  "nim": "12S24048",
+  "programStudi": "S1 Sistem Informasi",
+  "institusi": "Institut Teknologi Del",
+  "deskripsi": "Mahasiswa Sistem Informasi yang tertarik pada pengembangan website, UI/UX, dan teknologi digital.",
+  "keahlian": [
+    "HTML & CSS",
+    "Laravel & MySQL",
+    "Java & PostgreSQL",
+    "Figma & UI/UX Design"
+  ]
+}

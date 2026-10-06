@@ -1,0 +1,821 @@
+/* ==================================================
+   WEEK 4 - BOOTSTRAP 5 + CUSTOM CSS (Decoupled CSR)
+   Portfolio Olivia Tambunan — 12S24048
+   S1 Sistem Informasi, Institut Teknologi Del
+
+   DAFTAR ISI
+    1. CSS Variables (:root)
+    2. General Settings
+    3. Navbar
+    4. Hero Section
+    5. Buttons
+    6. Profile Card (aside)
+    7. Portfolio Section & Section Heading
+    8. Project Cards + ::before pseudo-element
+    9. Project Table
+   10. Ordered List (alur proyek)
+   11. Service / Form Section
+   12. Status Badge
+   13. Modal
+   14. Footer
+   15. Responsive Design
+   16. Week 4: Filter, Katalog Layanan, UI States
+   ================================================== */
+
+
+/* ==================================================
+   1. CSS VARIABLES
+   Minimal 6 variabel, semua dipakai di bawah.
+   Tidak ada !important di seluruh berkas ini.
+   ================================================== */
+
+:root {
+    /* Warna utama */
+    --cream:        #f7f3ea;
+    --white:        #fffdf8;
+    --charcoal:     #292824;
+    --gray:         #66645d;
+    --terracotta:   #9a4f38;
+    --sage:         #5c6a55;
+    --border:       #d8d2c7;
+
+    /* Shadow */
+    --shadow:       0 4px 14px rgba(41, 40, 36, 0.08);
+    --shadow-hover: 0 8px 24px rgba(41, 40, 36, 0.14);
+
+    /* Tipografi */
+    --heading-font: "Playfair Display", Georgia, serif;
+    --body-font:    "Plus Jakarta Sans", Arial, sans-serif;
+
+    /* Transisi */
+    --transition:   0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* ==================================================
+   2. GENERAL SETTINGS
+   ================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    max-width: 100%;
+    background-color: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--body-font);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: var(--heading-font);
+}
+
+h1, h2, h3, p {
+    margin-top: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.table-responsive {
+    width: 100%;
+}
+
+
+/* ==================================================
+   3. NAVBAR
+   Advanced selector: kombinator > dan pseudo-class
+   ================================================== */
+
+.custom-navbar {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar-brand {
+    color: var(--charcoal);
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Child combinator: hanya <span> anak langsung .navbar-brand */
+.navbar-brand > span {
+    color: var(--terracotta);
+}
+
+.custom-navbar .nav-link {
+    color: var(--charcoal);
+    margin-left: 1rem;
+    font-weight: 500;
+    position: relative;
+    transition: color var(--transition);
+}
+
+/* ::after pseudo-element: garis bawah animasi */
+.custom-navbar .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--terracotta);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+    color: var(--terracotta);
+}
+
+.custom-navbar .nav-link:hover::after,
+.custom-navbar .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.custom-navbar .nav-link:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+
+/* ==================================================
+   4. HERO SECTION
+   ================================================== */
+
+.hero-section {
+    padding: 6rem 0;
+}
+
+.section-label {
+    margin-bottom: 0.75rem;
+    color: var(--terracotta);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.hero-section h1 {
+    max-width: 700px;
+    margin-bottom: 1.25rem;
+    font-size: clamp(3rem, 7vw, 5rem);
+    line-height: 1.05;
+}
+
+/* Child combinator: hanya <span> di dalam h1 */
+.hero-section h1 > span {
+    color: var(--terracotta);
+}
+
+.hero-description {
+    max-width: 600px;
+    margin-bottom: 2rem;
+    color: var(--gray);
+    font-size: 1.05rem;
+}
+
+
+/* ==================================================
+   5. BUTTONS
+   ================================================== */
+
+.btn {
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        background-color var(--transition),
+        border-color var(--transition),
+        color var(--transition);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary-custom {
+    background-color: var(--terracotta);
+    border: 1px solid var(--terracotta);
+    color: var(--white);
+    padding: 0.7rem 1.25rem;
+}
+
+.btn-primary-custom:hover {
+    background-color: #7f3f2c;
+    border-color: #7f3f2c;
+    color: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.btn-outline-custom {
+    border: 1px solid var(--charcoal);
+    color: var(--charcoal);
+    padding: 0.7rem 1.25rem;
+}
+
+.btn-outline-custom:hover {
+    background-color: var(--charcoal);
+    color: var(--white);
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 3px;
+}
+
+
+/* ==================================================
+   6. PROFILE CARD / ASIDE
+   ================================================== */
+
+.profile-card {
+    padding: 2rem;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--sage);
+    box-shadow: var(--shadow);
+}
+
+.profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 1.5rem;
+    background-color: var(--sage);
+    color: var(--white);
+    border-radius: 50%;
+    font-size: 1.4rem;
+}
+
+.profile-card h2 {
+    margin-bottom: 0.25rem;
+    font-size: 1.8rem;
+}
+
+.profile-nim {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 0.25rem;
+}
+
+.profile-card h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.profile-card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+/* :nth-child: item keahlian genap diberi warna berbeda */
+.profile-card li:nth-child(even) {
+    color: var(--gray);
+}
+
+.profile-card li::marker {
+    color: var(--terracotta);
+}
+
+
+/* ==================================================
+   7. PORTFOLIO SECTION & SECTION HEADING
+   ================================================== */
+
+.portfolio-section {
+    padding: 5rem 0;
+    background-color: var(--white);
+}
+
+.section-heading {
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+}
+
+.section-heading h2 {
+    margin-bottom: 1rem;
+    font-size: 2.4rem;
+}
+
+/* :last-child pseudo-class */
+.section-heading > p:last-child {
+    color: var(--gray);
+}
+
+
+/* ==================================================
+   8. PROJECT CARDS + ::before PSEUDO-ELEMENT
+   ================================================== */
+
+.project-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    box-shadow: none;
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+/* ::before — garis aksen muncul dari kiri saat hover */
+.project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--terracotta);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.project-card:hover::before {
+    transform: scaleX(1);
+}
+
+.project-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    color: var(--white);
+    font-size: 2.5rem;
+}
+
+.banner-one   { background-color: var(--terracotta); }
+.banner-two   { background-color: var(--sage); }
+.banner-three { background-color: #6d7565; }
+.banner-four  { background-color: #9c7a59; }
+
+.technology-badge {
+    margin-right: 0.25rem;
+    margin-bottom: 0.75rem;
+    background-color: var(--cream);
+    color: var(--charcoal);
+    font-weight: 500;
+}
+
+.card-title {
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+}
+
+.card-text {
+    color: var(--gray);
+}
+
+.btn-card {
+    border: 1px solid var(--terracotta);
+    color: var(--terracotta);
+    transition:
+        background-color var(--transition),
+        color var(--transition);
+}
+
+.btn-card:hover {
+    background-color: var(--terracotta);
+    color: var(--white);
+}
+
+.btn-card:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 3px;
+}
+
+
+/* ==================================================
+   9. PROJECT TABLE
+   :nth-child(even) untuk zebra stripe pada baris tbody
+   ================================================== */
+
+.project-table {
+    margin-top: 1rem;
+    border-color: var(--border);
+}
+
+.project-table caption {
+    margin-bottom: 0.75rem;
+    color: var(--gray);
+    font-weight: 600;
+    caption-side: top;
+}
+
+.project-table thead th {
+    background-color: var(--charcoal);
+    color: var(--white);
+}
+
+.project-table tbody tr:nth-child(even) {
+    background-color: rgba(247, 243, 234, 0.6);
+}
+
+.project-table td,
+.project-table th {
+    padding: 0.9rem;
+    border-color: var(--border);
+    vertical-align: middle;
+}
+
+/* Status badge di dalam tabel */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* ::before pseudo-element: titik warna status */
+.status-badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.status-done {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-done::before {
+    background-color: #28a745;
+}
+
+.status-progress {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-progress::before {
+    background-color: #ffc107;
+}
+
+
+/* ==================================================
+   10. ORDERED LIST (alur proyek)
+   + adjacent sibling combinator pada li
+   ================================================== */
+
+.process-list {
+    margin-top: 3rem;
+    padding: 1.5rem 2rem;
+    background-color: var(--cream);
+    border-left: 3px solid var(--sage);
+}
+
+.process-list h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.process-list ol {
+    margin-bottom: 0;
+    padding-left: 1.25rem;
+}
+
+.process-list ol li {
+    padding: 0.35rem 0;
+    color: var(--gray);
+}
+
+/* + adjacent sibling: garis pemisah antar item */
+.process-list ol li + li {
+    border-top: 1px solid var(--border);
+}
+
+
+/* ==================================================
+   11. SERVICE / FORM SECTION
+   :focus-within: highlight panel form saat ada fokus
+   ================================================== */
+
+.service-section {
+    padding: 5rem 0;
+}
+
+.service-form {
+    max-width: 900px;
+    padding: 2rem;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    transition: border-color var(--transition);
+}
+
+/* :focus-within pseudo-class */
+.service-form:focus-within {
+    border-color: var(--sage);
+}
+
+.service-form fieldset {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.375rem;
+}
+
+.service-form legend {
+    width: auto;
+    padding: 0 0.5rem;
+    color: var(--terracotta);
+    font-family: var(--heading-font);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select,
+.input-group-text {
+    border-color: var(--border);
+    background-color: var(--white);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 0.2rem rgba(154, 79, 56, 0.15);
+}
+
+.form-control:focus-visible,
+.form-select:focus-visible,
+.form-check-input:focus-visible {
+    outline: 3px solid rgba(154, 79, 56, 0.35);
+    outline-offset: 2px;
+}
+
+.form-check-input:checked {
+    background-color: var(--terracotta);
+    border-color: var(--terracotta);
+}
+
+
+/* ==================================================
+   12. MODAL
+   ================================================== */
+
+.modal-content {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+}
+
+.modal-title {
+    font-family: var(--heading-font);
+    font-size: 1.6rem;
+}
+
+.modal-header {
+    border-bottom-color: var(--border);
+}
+
+.modal-body {
+    color: var(--gray);
+}
+
+.modal-body h6 {
+    color: var(--charcoal);
+}
+
+.project-modal-image {
+    display: block;
+    width: 100%;
+    max-height: 280px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+.modal-footer {
+    border-top-color: var(--border);
+}
+
+
+/* ==================================================
+   13. FOOTER
+   ================================================== */
+
+.site-footer {
+    padding: 2rem 0;
+    background-color: var(--charcoal);
+    color: var(--white);
+    text-align: center;
+}
+
+.site-footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+
+/* ==================================================
+   14. RESPONSIVE DESIGN
+   ================================================== */
+
+@media (max-width: 991.98px) {
+
+    .custom-navbar .nav-link {
+        margin-left: 0;
+        padding: 0.75rem 0;
+    }
+
+    .custom-navbar .nav-link::after {
+        display: none;
+    }
+
+    .hero-section {
+        padding: 4rem 0;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+
+    .profile-card {
+        padding: 1.5rem;
+    }
+
+    .portfolio-section,
+    .service-section {
+        padding: 4rem 0;
+    }
+
+    .service-form {
+        padding: 1.25rem;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .section-heading h2 {
+        font-size: 2rem;
+    }
+
+    .service-form fieldset {
+        padding: 1rem;
+    }
+
+}
+
+/* Advanced CSS Selectors */
+
+/* Child combinator */
+.project-card > .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjacent sibling */
+.section-label + h1,
+.section-label + h2 {
+    margin-top: 0;
+}
+
+/* General sibling */
+.form-check-input:checked ~ .form-check-label {
+    color: var(--terracotta);
+}
+
+/* Structural pseudo-class */
+.project-card:nth-child(even) .project-banner {
+    filter: saturate(0.9);
+}
+
+/* :is() */
+:is(.btn-primary-custom, .btn-outline-custom):focus-visible {
+    outline-offset: 3px;
+}
+
+/* :not() */
+.project-card:not(:last-child) {
+    margin-bottom: 0;
+}
+
+/* Pseudo-element */
+.section-heading h2 {
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.section-heading h2::after {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 3px;
+    margin-top: 0.75rem;
+    background-color: var(--terracotta);
+}
+
+
+/* ==================================================
+   16. WEEK 4: FILTER, KATALOG LAYANAN, UI STATES
+   ================================================== */
+
+.project-search {
+    max-width: 320px;
+}
+
+.project-banner .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-skeleton {
+    background-color: var(--cream);
+}
+
+.project-skeleton .placeholder {
+    height: 100%;
+}
+
+.filter-btn {
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    background-color: var(--white);
+    color: var(--charcoal);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition:
+        background-color var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+}
+
+.filter-btn:hover {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+}
+
+.filter-btn.active {
+    background-color: var(--terracotta);
+    border-color: var(--terracotta);
+    color: var(--white);
+}
+
+.filter-btn:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 3px;
+}
+
+.service-icon {
+    color: var(--terracotta);
+    font-size: 1.75rem;
+}
+
+.service-features {
+    padding-left: 1.1rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.service-price {
+    color: var(--terracotta);
+    font-weight: 700;
+}
+
+.nav-link.btn-order {
+    background: none;
+    border: 0;
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
+  <title id="title">Ilustrasi JExpress: paket dalam perjalanan</title>
+  <rect width="640" height="360" fill="#9a4f38"/>
+  <circle cx="500" cy="70" r="130" fill="#b86f55" opacity=".45"/>
+  <path d="M155 156 320 78l165 78v137l-165 78-165-78z" fill="#fffdf8"/>
+  <path d="m155 156 165 81 165-81M320 237v134" fill="none" stroke="#d8d2c7" stroke-width="12"/>
+  <path d="m242 115 165 79v55l-165-80z" fill="#d8d2c7"/>
+  <path d="M245 278h148" stroke="#5c6a55" stroke-linecap="round" stroke-width="16"/>
+</svg>
