@@ -257,16 +257,24 @@
                     <p>Gunakan formulir berikut untuk mengirimkan informasi dan kebutuhan layanan.</p>
                 </div>
 
+                <p class="small text-muted mb-4">
+                    Pesanan tersimpan di perangkat ini:
+                    <span
+                        class="badge rounded-pill text-bg-secondary"
+                        id="serviceOrderCount"
+                        aria-live="polite"
+                        aria-label="0 pesanan tersimpan"
+                    >0</span>
+                </p>
+
                 <!--
                     CATATAN: GitHub Pages hanya menyajikan berkas statis.
-                    Ganti action dengan email Anda atau layanan seperti Formspree.
-                    Contoh: action="https://formspree.io/f/ID_ANDA" method="POST"
+                    JavaScript mengirim formulir sebagai JSON ke endpoint mock JSONPlaceholder.
                 -->
                 <form
                     class="service-form needs-validation"
-                    action="mailto:olivia@example.com"
+                    action="https://jsonplaceholder.typicode.com/posts"
                     method="post"
-                    enctype="text/plain"
                     novalidate
                 >
 
@@ -352,13 +360,15 @@
                                     class="form-select"
                                     id="service"
                                     name="service"
+                                    disabled
                                     required
                                 >
                                     <option value="" selected disabled>Pilih layanan</option>
-                                    <option value="web">Web Development</option>
-                                    <option value="uiux">UI/UX Design</option>
-                                    <option value="consultation">Konsultasi</option>
                                 </select>
+                                <p class="form-text" id="serviceCatalogStatus" role="status">
+                                    Memuat daftar layanan...
+                                </p>
+                                <div class="alert alert-danger d-none mt-2" id="serviceCatalogError" role="alert"></div>
                                 <div class="invalid-feedback">
                                     Silakan pilih kategori layanan.
                                 </div>
@@ -523,7 +533,7 @@
                         </div>
                     </fieldset>
 
-                    <button type="submit" class="btn btn-primary-custom">
+                    <button type="submit" class="btn btn-primary-custom" id="serviceSubmitButton">
                         <i class="bi bi-send me-2"></i>Kirim Permintaan
                     </button>
 
@@ -582,6 +592,21 @@
         </div>
     </footer>
 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div
+            class="toast"
+            id="serviceToast"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+        >
+            <div class="toast-header">
+                <strong class="me-auto" id="serviceToastTitle">Informasi</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Tutup"></button>
+            </div>
+            <div class="toast-body" id="serviceToastMessage"></div>
+        </div>
+    </div>
 
     <!-- Bootstrap 5.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
