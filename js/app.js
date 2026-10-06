@@ -70,8 +70,6 @@
 
         const button = createElement('button', 'btn btn-card mt-auto', 'Lihat Detail');
         button.type = 'button';
-        button.dataset.bsToggle = 'modal';
-        button.dataset.bsTarget = '#universalProjectModal';
         button.dataset.projectId = project.id;
         body.append(button);
 
@@ -223,6 +221,17 @@
         }
     }
 
+    function openProjectModal(projectId, trigger) {
+        const project = projects.find(item => item.id === projectId);
+        if (!project) {
+            console.error('Modal proyek tidak dapat dibuka: ID proyek tidak ditemukan.', projectId);
+            return;
+        }
+
+        setProjectModal(project);
+        window.bootstrap.Modal.getOrCreateInstance(projectModal).show(trigger);
+    }
+
     function setProjectError(error) {
         projectGrid.replaceChildren();
         projectGrid.classList.add('d-none');
@@ -262,17 +271,13 @@
         }
     });
 
-    projectModal.addEventListener('show.bs.modal', event => {
-        const trigger = event.relatedTarget;
-        const projectId = trigger && trigger.dataset.projectId;
-        const project = projects.find(item => item.id === projectId);
-        if (!project) {
-            event.preventDefault();
-            console.error('Modal proyek tidak dapat dibuka: ID proyek tidak ditemukan.', projectId);
-            return;
+    projectGrid.addEventListener('click', event => {
+        const trigger = event.target instanceof Element
+            ? event.target.closest('button[data-project-id]')
+            : null;
+        if (trigger && projectGrid.contains(trigger)) {
+            openProjectModal(trigger.dataset.projectId, trigger);
         }
-
-        setProjectModal(project);
     });
 
     loadProfile();
